@@ -19,6 +19,8 @@ def verify_zip(zip_code):
         raise ValueError(f"The ZIP code {zip_code} is not valid or could not be found. Please check and try again.")
     return True
 
+people = ['Tishaura O. Jones', 'Cara Spencer', 'Donna M.C. Baringer', 'Darlene Green', 'Anne Schweitzer', 'Tony Kirchner', 'Dallas Adams', 'Shane Cohn', 'Matt Devoti', 'Alisha Sonnier', 'Cedric Redmon', 'Michael Browning', 'Rebecca McCloud', 'Laura M. Keys', 'Pamela Boyd', 'Karen Collins-Adams', 'Brian H. Marston', 'David L. Jackson, Jr.', 'Allisa (AJ) Foster', 'William (Bill) Monroe', 'Krystal Barnett', 'Zacheriah (Zach) Davis', 'Antionette (Toni) Cousins', 'Tavon Brooks', 'Andre D. Walker', 'Teri Powers', 'Robert Terry Mason II', 'David Addison', 'Holly Talir']
+
 def run_test_case_creve_coeur():
     print("\nTEST CASE: 50 Morwood Ln, Creve Coeur, MO 63141")
     print("\nElection Date: April 8, 2025")
@@ -99,12 +101,28 @@ def get_upcoming_election(full_address):
             for cand in c.get("candidates", []):
                 print(f"  - {cand['name']} ({cand.get('party', 'N/A')})")
 
-# User Input 
-def get_names(full_address):
+def get_names(full_address, test_case=False):
+    if test_case:
+        return people[:5]
+
     params = {"key": CIVIC_API_KEY, "address": full_address}
     res = requests.get(CIVIC_API_URL, params=params)
 
     data = res.json()
+
+    if res.status_code == 400:
+        error_msg = res.json().get('error', {}).get('message', '')
+        if "Election unknown" in error_msg:
+            print("There is no upcoming election for this address. Please check back later or verify with your local election office.")
+            return
+        else:
+            print("Something went wrong while fetching election data. Please verify your address or try again later.")
+            print(f"Details: {res.json().get('error', {}).get('message', '')}")
+            return []
+    elif res.status_code != 200:
+        print("Unable to connect to the Civic API. Please check your internet connection.")
+        print(f"Status Code: {res.status_code}, Details: {res.text}")
+        return []
 
     contests = data.get("contests", [])
     contestants = []
