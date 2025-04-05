@@ -35,6 +35,7 @@ function AddressForm() {
   return (
     <div className="container">
       <div className="overlay">
+        <h1 style={{ fontSize: 35 }}>VoteWise</h1>
         <img src={sealImg} alt="Seal" className="seal" />
         <h1>Enter Your Address</h1>
         <form onSubmit={handleSubmit}>
