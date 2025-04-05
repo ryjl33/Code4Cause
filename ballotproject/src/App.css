@@ -7,7 +7,9 @@ html, body, #root {
   font-family: Georgia, sans-serif;
 }
 
-/* Address form container */
+/* =================================
+   ADDRESS FORM PAGE (unchanged)
+================================= */
 .container {
   width: 100vw;
   height: 100vh;
@@ -18,7 +20,6 @@ html, body, #root {
   padding-top: 60px;
 }
 
-/* White card overlay */
 .overlay {
   background-color: #fff;
   color: #333;
@@ -41,7 +42,6 @@ h1 {
   font-size: 1.5rem;
 }
 
-/* Form styling */
 form {
   display: flex;
   flex-direction: column;
@@ -50,37 +50,37 @@ form {
 
 input {
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid #c0c0c0;
   border-radius: 20px;
   font-size: 16px;
 }
 
-/* Button styling */
 button {
   padding: 12px;
   border: none;
   border-radius: 20px;
-  background-color: #545454; /* default light background */
+  background-color: #c0c0c0;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
 button.active {
-  background-color: #303030; /* darker background when complete */
+  background-color: #7a7a7a;
 }
 
-/* Disabled button style */
 button:disabled {
-  background-color: #eee;
+  background-color: #c0c0c0;
   cursor: not-allowed;
 }
 
 button:hover:enabled {
-  background-color: #ccc;
+  background-color: #232323;
 }
 
-/* Ballot Page Styles */
+/* =================================
+   BALLOT PAGE STYLES
+================================= */
 .ballot-container {
   width: 100vw;
   min-height: 100vh;
@@ -88,39 +88,49 @@ button:hover:enabled {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center; /* Center all text */
   padding: 60px 20px;
   box-sizing: border-box;
-  color: #000; /* Set text color to black */
+  color: #000; /* all text in black */
+  text-align: center; /* center all text */
+  overflow-y: auto;  /* enable vertical scrolling if needed */
 }
 
 .ballot-container h1 {
-  font-size: 2rem; /* enlarge this heading */
+  font-size: 2rem; /* larger "Ballot Information" heading */
   margin-bottom: 20px;
 }
 
-.address-info, .ballot-details {
+.address-info {
   background-color: #fff;
   padding: 20px;
+  margin-bottom: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   width: 100%;
   max-width: 600px;
-  margin-bottom: 20px;
 }
 
-/* Ensure headers are centered */
-.ballot-container h1, 
-.ballot-container h2,
-.ballot-container p {
+.ballot-details {
+  width: 100%;
+  max-width: 600px;
+}
+
+.candidate-card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
   text-align: center;
 }
 
+/* =================================
+   LOGO AT BOTTOM-LEFT (for both pages)
+================================= */
 .bottom-logo {
   position: fixed;
   bottom: 20px;
   left: 20px;
-  width: 60px; /* adjust as you like */
-  z-index: 999; /* ensure it's on top */
+  width: 60px; /* adjust size as needed */
+  z-index: 999;
 }
