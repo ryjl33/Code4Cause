@@ -99,6 +99,19 @@ def get_upcoming_election(full_address):
             for cand in c.get("candidates", []):
                 print(f"  - {cand['name']} ({cand.get('party', 'N/A')})")
 
+def get_names(full_address):
+    params = {"key": CIVIC_API_KEY, "address": full_address}
+    res = requests.get(CIVIC_API_URL, params=params)
+
+    data = res.json()
+
+    contests = data.get("contests", [])
+    contestants = []
+    for c in contests:
+        if c.get("type") in ["General", "Primary"] and "candidates" in c:
+            for cand in c.get("candidates", []):
+                contestants.append(cand['name'])
+
 # 🧑‍💻 User Input + Test Case Trigger
 if __name__ == "__main__":
     print("📬 Enter your full address to check election info:")
