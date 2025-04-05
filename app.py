@@ -2,6 +2,7 @@ from flask import Flask, request
 from guidance import models, gen, system, user, assistant
 
 from scrape_information import scrape_information
+from GOOGLEapi import get_names
 from flask_cors import CORS
 import orjson
 
@@ -32,18 +33,21 @@ def index():
 
     return resp
 
-def get_list_names(c):
-    # This function should return a list of names to be used in the conversation.
-    # For demonstration purposes, we'll return a static list.
-    return ['Donna M.C. Baringer', 'Mike DeWine', 'Joe Biden', 'Donald Trump']
-
-@app.route('/ask/<string:city_location>', methods=['GET'])
-def ask(city_location):
+@app.route('/ask/', methods=['POST'])
+def ask():
     global lm
 
-    print(f'Location: {city_location}')
+    data = request.get_json()
 
-    names = get_list_names(city_location)
+    street = data['street']
+    city = data['city']
+    state = data['state']
+    zip_code = data['zipcode']
+    location = f'{street}, {city}, {state} {zip_code}'
+
+    print(f'Location: {location}')
+
+    names = get_names(location, test_case=True)
     resps = []
 
     for name in names:
