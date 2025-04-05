@@ -48,7 +48,7 @@ def ask():
     print(f'Location: {location}')
 
     names = get_names(location, test_case=True)
-    resps = []
+    resps = {}
 
     for name in names:
         person_info = scrape_information(name)
@@ -58,6 +58,6 @@ def ask():
         with assistant():
             lm += gen(name='resp', temperature=0.3, max_tokens=500)
         
-        resps.append(lm['resp'])
+        resps[name] = lm['resp']
 
     return orjson.dumps(resps).decode()
